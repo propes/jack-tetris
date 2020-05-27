@@ -60,6 +60,36 @@ class Block {
         return Board.canBlockMoveDown(this);
     }
 
+    method void moveLeft() {
+        var int i;
+        var Brick brick;
+
+        if (Board.canBlockMoveLeft(this)) {
+            let i = brickCount - 1;
+            while (i > -1) {
+                let brick = bricks[i];
+                do brick.moveLeft();
+                let i = i - 1;
+            }
+        }
+        return;
+    }
+
+    method void moveRight() {
+        var int i;
+        var Brick brick;
+
+        if (Board.canBlockMoveRight(this)) {
+            let i = brickCount - 1;
+            while (i > -1) {
+                let brick = bricks[i];
+                do brick.moveRight();
+                let i = i - 1;
+            }
+        }
+        return;
+    }
+
     method void fix() {
         var int i;
         var Brick brick;

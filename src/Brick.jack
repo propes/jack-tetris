@@ -32,6 +32,20 @@ class Brick {
         return;
     }
 
+    method void moveLeft() {
+        do Board.eraseBrick(_row, _column);
+        let _column = _column - 1;
+        do Board.drawBrick(_row, _column);
+        return;
+    }
+
+    method void moveRight() {
+        do Board.eraseBrick(_row, _column);
+        let _column = _column + 1;
+        do Board.drawBrick(_row, _column);
+        return;
+    }
+
     method boolean isOnBoard() {
         if (_row < 0) {
             return false;

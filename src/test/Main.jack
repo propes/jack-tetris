@@ -10,6 +10,12 @@ class Main {
         let failCount = failCount + BlockTests.canMoveDown_GivenTwoBricksUnderneath_ReturnsFalse();
         let failCount = failCount + BlockTests.isOnBoard_GivenAllBricksOnBoard_ReturnsTrue();
         let failCount = failCount + BlockTests.isOnBoard_GivenSomeBricksNotOnBoard_ReturnsFalse();
+        let failCount = failCount + BoardTests.canBlockMoveLeft_GivenNotNextToWall_ReturnsTrue();
+        let failCount = failCount + BoardTests.canBlockMoveLeft_GivenNextToWall_ReturnsFalse();
+        let failCount = failCount + BoardTests.canBlockMoveLeft_GivenBrickToLeft_ReturnsFalse();
+        let failCount = failCount + BoardTests.canBlockMoveRight_GivenNotNextToWall_ReturnsTrue();
+        let failCount = failCount + BoardTests.canBlockMoveRight_GivenNextToWall_ReturnsFalse();
+        let failCount = failCount + BoardTests.canBlockMoveRight_GivenBrickToRight_ReturnsFalse();
 
         if (failCount = 0) {
             do Output.printString("All tests passed.");

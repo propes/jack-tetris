@@ -1,0 +1,93 @@
+class BoardTests {
+    function int canBlockMoveLeft_GivenNotNextToWall_ReturnsTrue() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 1);
+        let actual = Board.canBlockMoveLeft(block);
+
+        do block.dispose();
+
+        return Assert.isTrue(actual, "canBlockMoveLeft_GivenNotNextToWall");
+    }
+
+    function int canBlockMoveLeft_GivenNextToWall_ReturnsFalse() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 0);
+        let actual = Board.canBlockMoveLeft(block);
+
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canBlockMoveLeft_GivenNextToWall");
+    }
+
+    function int canBlockMoveLeft_GivenBrickToLeft_ReturnsFalse() {
+        var Block block;
+        var Brick brick;
+        var boolean actual;
+
+        do Board.init();
+        let brick = Brick.new(12, 0);
+        do Board.addBrick(brick);
+
+        let block = Block.new(11, 1);
+        let actual = Board.canBlockMoveLeft(block);
+
+        do brick.dispose();
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canBlockMoveLeft_GivenBrickToLeft");
+    }
+
+    function int canBlockMoveRight_GivenNotNextToWall_ReturnsTrue() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 7);
+        let actual = Board.canBlockMoveRight(block);
+
+        do block.dispose();
+
+        return Assert.isTrue(actual, "canBlockMoveRight_GivenNotNextToWall");
+    }
+
+    function int canBlockMoveRight_GivenNextToWall_ReturnsFalse() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 8);
+        let actual = Board.canBlockMoveRight(block);
+
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canBlockMoveRight_GivenNextToWall");
+    }
+
+    function int canBlockMoveRight_GivenBrickToRight_ReturnsFalse() {
+        var Block block;
+        var Brick brick;
+        var boolean actual;
+
+        do Board.init();
+        let brick = Brick.new(12, 9);
+        do Board.addBrick(brick);
+
+        let block = Block.new(11, 7);
+        let actual = Board.canBlockMoveRight(block);
+
+        do brick.dispose();
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canBlockMoveRight_GivenBrickToRight");
+    }
+}

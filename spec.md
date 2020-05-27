@@ -59,9 +59,11 @@ Random block generator
 - Draw board with square block in place
 - Draw board with two square blocks in place
 - Implement falling block
-- Implement movement
+- Implement movement left and right movement
 - Implement line removal
 - Draw score
 - Implement scoring
+- Implement drop
 - Implement other blocks
+- Implement rotation
 - Implement random block generator
