@@ -1,0 +1,128 @@
+class BlockTests {
+    function int canMoveDown_GivenStartPosition_ReturnsTrue() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 4);
+        let actual = block.canMoveDown();
+
+        do block.dispose();
+
+        return Assert.isTrue(actual, "canMoveDown_GivenStartPosition");
+    }
+
+    function int canMoveDown_GivenJustAboveEndOfBoard_ReturnsTrue() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(11, 4);
+        let actual = block.canMoveDown();
+
+        do block.dispose();
+
+        return Assert.isTrue(actual, "canMoveDown_GivenJustAboveEndOfBoard");
+    }
+
+    function int canMoveDown_GivenAtEndOfBoard_ReturnsFalse() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(12, 4);
+        let actual = block.canMoveDown();
+
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canMoveDown_GivenAtEndOfBoard");
+    }
+
+    function int canMoveDown_GivenBrickUnderneath_ReturnsFalse() {
+        var Block block;
+        var Brick brick;
+        var boolean actual;
+
+        do Board.init();
+        let brick = Brick.new(13, 4);
+        do Board.addBrick(brick);
+
+        let block = Block.new(11, 4);
+        let actual = block.canMoveDown();
+
+        do brick.dispose();
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canMoveDown_GivenBrickUnderneath");
+    }
+
+    function int canMoveDown_GivenBrickToSide_ReturnsTrue() {
+        var Block block;
+        var Brick brick;
+        var boolean actual;
+
+        do Board.init();
+        let brick = Brick.new(13, 6);
+        do Board.addBrick(brick);
+
+        let block = Block.new(11, 4);
+        let actual = block.canMoveDown();
+
+        do brick.dispose();
+        do block.dispose();
+
+        return Assert.isTrue(actual, "canMoveDown_GivenBrickToSide");
+    }
+
+    function int canMoveDown_GivenTwoBricksUnderneath_ReturnsFalse() {
+        var Block block;
+        var Brick brick1, brick2;
+        var boolean actual;
+
+        do Board.init();
+        let brick1 = Brick.new(12, 4);
+        let brick2 = Brick.new(13, 4);
+        do Board.addBrick(brick1);
+        do Board.addBrick(brick2);
+
+        let block = Block.new(10, 4);
+        let actual = block.canMoveDown();
+
+        do brick1.dispose();
+        do brick2.dispose();
+        do block.dispose();
+
+        return Assert.isFalse(actual, "canMoveDown_GivenTwoBricksUnderneath");
+    }
+
+    function int isOnBoard_GivenAllBricksOnBoard_ReturnsTrue() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(0, 4);
+        let actual = block.isOnBoard();
+
+        do block.dispose();
+
+        return Assert.isTrue(actual, "isOnBoard_GivenAllBricksOnBoard");
+    }
+
+    function int isOnBoard_GivenSomeBricksNotOnBoard_ReturnsFalse() {
+        var Block block;
+        var boolean actual;
+
+        do Board.init();
+
+        let block = Block.new(-1, 4);
+        let actual = block.isOnBoard();
+
+        do block.dispose();
+
+        return Assert.isFalse(actual, "isOnBoard_GivenSomeBricksNotOnBoard");
+    }
+}

@@ -1,0 +1,29 @@
+class Main {
+    function void main() {
+        var Block block;
+        var boolean continue;
+
+        do Board.init();
+        do Board.draw();
+
+        let continue = true;
+        while (continue) {
+            let block = Block.new(-2, 4); // Block starts off board
+            do block.draw();
+
+            while (block.canMoveDown()) {
+                do block.moveDown();
+                do Sys.wait(500);
+            }
+
+            if (~block.isOnBoard()) {
+                let continue = false;
+            }
+
+            do block.fix();
+            do block.dispose();
+        }
+
+        return;
+    }
+}

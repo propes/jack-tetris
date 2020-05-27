@@ -1,0 +1,20 @@
+class Main {
+    function void main() {
+        var int failCount;
+        let failCount = 0;
+        let failCount = failCount + BlockTests.canMoveDown_GivenStartPosition_ReturnsTrue();
+        let failCount = failCount + BlockTests.canMoveDown_GivenJustAboveEndOfBoard_ReturnsTrue();
+        let failCount = failCount + BlockTests.canMoveDown_GivenAtEndOfBoard_ReturnsFalse();
+        let failCount = failCount + BlockTests.canMoveDown_GivenBrickUnderneath_ReturnsFalse();
+        let failCount = failCount + BlockTests.canMoveDown_GivenBrickToSide_ReturnsTrue();
+        let failCount = failCount + BlockTests.canMoveDown_GivenTwoBricksUnderneath_ReturnsFalse();
+        let failCount = failCount + BlockTests.isOnBoard_GivenAllBricksOnBoard_ReturnsTrue();
+        let failCount = failCount + BlockTests.isOnBoard_GivenSomeBricksNotOnBoard_ReturnsFalse();
+
+        if (failCount = 0) {
+            do Output.printString("All tests passed.");
+        }
+
+        return;
+    }
+}

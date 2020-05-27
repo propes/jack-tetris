@@ -1,0 +1,83 @@
+class Assert {
+    function int equalInt(int expected, int actual, String description) {
+        var String msg;
+
+        if (expected = actual) {
+            return 0;
+        }
+
+        let msg = Assert.failMessageInt(expected, actual, description);
+
+        do Output.printString(msg);
+        do Output.println();
+        return 1;
+    }
+
+    function int equalString(String expected, String actual, String description) {
+        var String msg;
+
+        if (expected = actual) {
+            return 0;
+        }
+
+        let msg = Assert.failMessage(expected, actual, description);
+
+        do Output.printString(msg);
+        do Output.println();
+        return 1;
+    }
+
+    function int isTrue(boolean actual, string description) {
+        var String msg;
+
+        if (actual) {
+            return 0;
+        }
+
+        let msg = Assert.failMessage("true", "false", description);
+
+        do Output.printString(msg);
+        do Output.println();
+        return 1;
+    }
+
+    function int isFalse(boolean actual, string description) {
+        var String msg;
+
+        if (~actual) {
+            return 0;
+        }
+
+        let msg = Assert.failMessage("false", "true", description);
+
+        do Output.printString(msg);
+        do Output.println();
+        return 1;
+    }
+
+    function String failMessage(String expected, String actual, string description) {
+        var String msg;
+
+        let msg = StringHelper.Join("Test failed: ", description);
+        let msg = StringHelper.Join(msg, ". Expected ");
+        let msg = StringHelper.Join(msg, expected);
+        let msg = StringHelper.Join(msg, ", Actual ");
+        let msg = StringHelper.Join(msg, actual);
+        let msg = StringHelper.Join(msg, ".");
+
+        return msg;
+    }
+
+    function int failMessageInt(int expected, int actual, String description) {
+        var String expStr;
+        var String actStr;
+
+        let expStr = String.new(16);
+        let actStr = String.new(16);
+
+        do expStr.setInt(expected);
+        do actStr.setInt(actual);
+
+        return Assert.failMessage(expStr, actStr, description);
+    }
+}

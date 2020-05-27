@@ -1,0 +1,112 @@
+class Board {
+    static int screenMemAddress;
+    static int wordSize;
+    static int screenColumns;
+    static int rows;
+    static int columns;
+    static BrickArray brickArray;
+
+    function void init() {
+        let screenMemAddress = 16384;
+        let screenColumns = 32;
+        let wordSize = 16;
+        let rows = 14;
+        let columns = 10;
+        let brickArray = BrickArray.new(rows * columns);
+        return;
+    }
+
+    function void addBrick(Brick brick) {
+        do brickArray.add(brick);
+        return;
+    }
+
+    function void draw() {
+        var int leftX, rightX, topY, bottomY;
+
+        let leftX = (screenColumns - columns) * wordSize / 2 - 1;
+        let rightX = leftX + (columns * wordSize);
+        let topY = 16;
+        let bottomY = topY + (rows * wordSize);
+
+        do Screen.setColor(true);
+        do Screen.drawLine(leftX, topY, leftX, bottomY);
+        do Screen.drawLine(leftX, bottomY, rightX, bottomY);
+        do Screen.drawLine(rightX, topY, rightX, bottomY);
+
+        return;
+    }
+
+    function void drawBrick(int row, int column) {
+        do Board.drawBrickColor(row, column, true);
+        return;
+    }
+
+    function void eraseBrick(int row, int column) {
+        do Board.drawBrickColor(row, column, false);
+        return;
+    }
+
+    function void drawBrickColor(int row, int column, boolean isBlack) {
+        var int location, memAddress, i, wordValue;
+
+        // If the brick is not on the board yet, do not draw.
+        if (row < 0) {
+            return;
+        }
+
+        let location = (16 + (row * wordSize)) * screenColumns + 11 + column;
+        let memAddress = screenMemAddress + location;
+        if (isBlack) {
+            let wordValue = -2;
+        } else {
+            let wordValue = 0;
+        }
+
+        let i = 1;
+        while (i < 16) {
+            do Memory.poke(memAddress + (i * screenColumns), wordValue);
+            let i = i + 1;
+        }
+
+        return;
+    }
+
+    function boolean canBlockMoveDown(Block block) {
+        var Array bricks;
+        var Brick brick;
+        var int i, maxRow;
+
+        let bricks = block.getBricks();
+        let i = 0;
+        while (i < block.getBrickCount()) {
+            let brick = bricks[i];
+            let maxRow = Board.getMaxRowForColumn(brick.getColumn());
+            if (brick.getRow() = maxRow) {
+                return false;
+            }
+            let i = i + 1;
+        }
+
+        return true;
+    }
+
+    function int getMaxRowForColumn(int column) {
+        var int i, maxRow, brickRow;
+        var Array bricks;
+        var Brick brick;
+
+        let maxRow = rows - 1;
+        let i = 0;
+        while (i < brickArray.getCount()) {
+            let brick = brickArray.getItem(i);
+            if (brick.getRow() < (maxRow + 1) & brick.getColumn() = column) {
+                let maxRow = brick.getRow() - 1;
+            }
+
+            let i = i + 1;
+        }
+
+        return maxRow;
+    }
+}

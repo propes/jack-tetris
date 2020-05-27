@@ -1,0 +1,42 @@
+class Brick {
+    field int _row, _column;
+
+    constructor Brick new(int row, int column) {
+        let _row = row;
+        let _column = column;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getRow() {
+        return _row;
+    }
+
+    method int getColumn() {
+        return _column;
+    }
+
+    method void draw() {
+        do Board.drawBrick(_row, _column);
+        return;
+    }
+
+    method void moveDown() {
+        do Board.eraseBrick(_row, _column);
+        let _row = _row + 1;
+        do Board.drawBrick(_row, _column);
+        return;
+    }
+
+    method boolean isOnBoard() {
+        if (_row < 0) {
+            return false;
+        }
+
+        return true;
+    }
+}

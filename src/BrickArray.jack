@@ -1,0 +1,33 @@
+class BrickArray {
+    field Array array;
+    field int count;
+
+    constructor BrickArray new(int maxSize) {
+        let array = Array.new(maxSize);
+        let count = 0;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getCount() {
+        return count;
+    }
+
+    method Array getArray() {
+        return array;
+    }
+
+    method Brick getItem(int index) {
+        return array[index];
+    }
+
+    method void add(Brick brick) {
+        let array[count] = brick;
+        let count = count + 1;
+        return;
+    }
+}

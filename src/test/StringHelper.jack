@@ -1,0 +1,26 @@
+class StringHelper {
+    function String Join(String str1, String str2) {
+        var int len1, len2;
+        var String join;
+        var int i, j;
+
+        let len1 = str1.length();
+        let len2 = str2.length();
+
+        let join = String.new(len1 + len2);
+
+        let i = 0;
+        while (i < len1) {
+            let join = join.appendChar(str1.charAt(i));
+            let i = i + 1;
+        }
+
+        let j = 0;
+        while (j < len2) {
+            let join = join.appendChar(str2.charAt(j));
+            let j = j + 1;
+        }
+
+        return join;
+    }
+}

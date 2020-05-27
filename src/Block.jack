@@ -1,0 +1,91 @@
+class Block {
+    field Array bricks;
+    field int brickCount;
+    field int _row;
+    field int _column;
+
+    constructor Block new(int row, int column) {
+        let _row = row;
+        let _column = column;
+        let bricks = Array.new(4);
+        let bricks[0] = Brick.new(_row, _column);
+        let bricks[1] = Brick.new(_row, _column + 1);
+        let bricks[2] = Brick.new(_row + 1, _column);
+        let bricks[3] = Brick.new(_row + 1, _column + 1);
+        let brickCount = 4;
+        return this;
+    }
+
+    method void dispose() {
+        do bricks.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getBrickCount() {
+        return brickCount;
+    }
+
+    method Array getBricks() {
+        return bricks;
+    }
+
+    method void draw() {
+        var int i;
+        var Brick brick;
+
+        let i = 0;
+        while (i < brickCount) {
+            let brick = bricks[i];
+            do brick.draw();
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void moveDown() {
+        var int i;
+        var Brick brick;
+
+        let i = brickCount - 1;
+        while (i > -1) {
+            let brick = bricks[i];
+            do brick.moveDown();
+            let i = i - 1;
+        }
+        return;
+    }
+
+    method boolean canMoveDown() {
+        return Board.canBlockMoveDown(this);
+    }
+
+    method void fix() {
+        var int i;
+        var Brick brick;
+
+        let i = 0;
+        while (i < brickCount) {
+            let brick = bricks[i];
+            do Board.addBrick(brick);
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method boolean isOnBoard() {
+        var int i;
+        var Brick brick;
+
+        let i = 0;
+        while (i < brickCount) {
+            let brick = bricks[i];
+            if (~brick.isOnBoard()) {
+                return false;
+            }
+            let i = i + 1;
+        }
+
+        return true;
+    }
+}
