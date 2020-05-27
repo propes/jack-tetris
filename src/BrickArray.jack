@@ -1,10 +1,11 @@
 class BrickArray {
     field Array array;
-    field int count;
+    field int _rows, _columns;
 
-    constructor BrickArray new(int maxSize) {
-        let array = Array.new(maxSize);
-        let count = 0;
+    constructor BrickArray new(int rows, int columns) {
+        let _rows = rows;
+        let _columns = columns;
+        let array = Array.new(rows * columns);
         return this;
     }
 
@@ -13,21 +14,46 @@ class BrickArray {
         return;
     }
 
-    method int getCount() {
-        return count;
-    }
-
     method Array getArray() {
         return array;
     }
 
-    method Brick getItem(int index) {
-        return array[index];
+    method Brick getItem(int row, int column) {
+        return array[getIndex(row, column)];
+    }
+
+    method boolean hasItem(int row, int column) {
+        if (row < 0) {
+            return false;
+        }
+        if (getItem(row, column) = null) {
+            return false;
+        }
+        return true;
     }
 
     method void add(Brick brick) {
-        let array[count] = brick;
-        let count = count + 1;
+        var int index;
+        let index = getIndex(brick.getRow(), brick.getColumn());
+        let array[index] = brick;
         return;
+    }
+
+    method int getIndex(int row, int column) {
+        return row * _columns + column;
+    }
+
+    method int rowCount(int row) {
+        var int col, count;
+
+        let count = 0;
+        while (col < _columns) {
+            if (~(getItem(row, col) = null)) {
+                let count = count + 1;
+            }
+            let col = col + 1;
+        }
+
+        return count;
     }
 }

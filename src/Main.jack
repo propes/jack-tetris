@@ -35,9 +35,10 @@ class Main {
 
             if (~block.isOnBoard()) {
                 let continue = false;
+            } else {
+                do block.fix();
             }
 
-            do block.fix();
             do block.dispose();
         }
 

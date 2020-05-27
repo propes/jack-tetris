@@ -12,7 +12,7 @@ class Board {
         let wordSize = 16;
         let rows = 14;
         let columns = 10;
-        let brickArray = BrickArray.new(rows * columns);
+        let brickArray = BrickArray.new(rows, columns);
         return;
     }
 
@@ -75,14 +75,15 @@ class Board {
     function boolean canBlockMoveDown(Block block) {
         var Array bricks;
         var Brick brick;
-        var int i, maxRow;
+        var int i, row, column;
 
         let bricks = block.getBricks();
         let i = 0;
         while (i < block.getBrickCount()) {
             let brick = bricks[i];
-            let maxRow = Board.getMaxRowForColumn(brick.getColumn());
-            if (brick.getRow() = maxRow) {
+            let row = brick.getRow();
+            let column = brick.getColumn();
+            if (row = (rows - 1) | brickArray.hasItem(row + 1, column)) {
                 return false;
             }
             let i = i + 1;
@@ -94,13 +95,15 @@ class Board {
     function boolean canBlockMoveLeft(Block block) {
         var Array bricks;
         var Brick brick;
-        var int i;
+        var int i, row, column;
 
         let bricks = block.getBricks();
         let i = 0;
         while (i < block.getBrickCount()) {
             let brick = bricks[i];
-            if (brick.getColumn() = 0 | Board.isBrickToLeft(brick)) {
+            let row = brick.getRow();
+            let column = brick.getColumn();
+            if (column = 0 | brickArray.hasItem(row, column - 1)) {
                 return false;
             }
             let i = i + 1;
@@ -112,69 +115,20 @@ class Board {
     function boolean canBlockMoveRight(Block block) {
         var Array bricks;
         var Brick brick;
-        var int i;
+        var int i, row, column;
 
         let bricks = block.getBricks();
         let i = 0;
         while (i < block.getBrickCount()) {
             let brick = bricks[i];
-            if (brick.getColumn() = (columns - 1) | Board.isBrickToRight(brick)) {
+            let row = brick.getRow();
+            let column = brick.getColumn();
+            if (column = (columns - 1) | brickArray.hasItem(row, column + 1)) {
                 return false;
             }
             let i = i + 1;
         }
 
         return true;
-    }
-
-    function int getMaxRowForColumn(int column) {
-        var int i, maxRow;
-        var Array bricks;
-        var Brick brick;
-
-        let maxRow = rows - 1;
-        let i = 0;
-        while (i < brickArray.getCount()) {
-            let brick = brickArray.getItem(i);
-            if (brick.getRow() < (maxRow + 1) & brick.getColumn() = column) {
-                let maxRow = brick.getRow() - 1;
-            }
-
-            let i = i + 1;
-        }
-
-        return maxRow;
-    }
-
-    function boolean isBrickToLeft(Brick brick) {
-        var Brick fixedBrick;
-        var int i;
-
-        while (i < brickArray.getCount()) {
-            let fixedBrick = brickArray.getItem(i);
-            if (fixedBrick.getColumn() = (brick.getColumn() - 1) & fixedBrick.getRow() = brick.getRow()) {
-                return true;
-            }
-
-            let i = i + 1;
-        }
-
-        return false;
-    }
-
-    function boolean isBrickToRight(Brick brick) {
-        var Brick fixedBrick;
-        var int i;
-
-        while (i < brickArray.getCount()) {
-            let fixedBrick = brickArray.getItem(i);
-            if (fixedBrick.getColumn() = (brick.getColumn() + 1) & fixedBrick.getRow() = brick.getRow()) {
-                return true;
-            }
-
-            let i = i + 1;
-        }
-
-        return false;
     }
 }
