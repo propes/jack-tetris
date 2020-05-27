@@ -2,10 +2,11 @@ class Main {
     function void main() {
         var Block block;
         var boolean continue;
-        var int cycle, key, LEFT_KEY, RIGHT_KEY;
+        var int cycle, key, LEFT_KEY, RIGHT_KEY, DOWN_KEY;
 
         let LEFT_KEY = 130;
         let RIGHT_KEY = 132;
+        let DOWN_KEY = 133;
 
         do Board.init();
         do Board.draw();
@@ -16,16 +17,19 @@ class Main {
             do block.draw();
 
             while (block.canMoveDown()) {
-                do block.moveDown();
+                do block.moveDownAndRedraw();
 
                 let cycle = 0;
                 while (cycle < 5) {
                     let key = Keyboard.keyPressed();
                     if (key = LEFT_KEY) {
-                        do block.moveLeft();
+                        do block.moveLeftAndRedraw();
                     }
                     if (key = RIGHT_KEY) {
-                        do block.moveRight();
+                        do block.moveRightAndRedraw();
+                    }
+                    if (key = DOWN_KEY) {
+                        do block.dropAndRedraw();
                     }
 
                     do Sys.wait(100);

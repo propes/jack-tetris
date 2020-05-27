@@ -25,24 +25,23 @@ class Brick {
         return;
     }
 
-    method void moveDown() {
+    method void erase() {
         do Board.eraseBrick(_row, _column);
+        return;
+    }
+
+    method void moveDown() {
         let _row = _row + 1;
-        do Board.drawBrick(_row, _column);
         return;
     }
 
     method void moveLeft() {
-        do Board.eraseBrick(_row, _column);
         let _column = _column - 1;
-        do Board.drawBrick(_row, _column);
         return;
     }
 
     method void moveRight() {
-        do Board.eraseBrick(_row, _column);
         let _column = _column + 1;
-        do Board.drawBrick(_row, _column);
         return;
     }
 

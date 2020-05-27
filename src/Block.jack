@@ -43,6 +43,26 @@ class Block {
         return;
     }
 
+    method void erase() {
+        var int i;
+        var Brick brick;
+
+        let i = 0;
+        while (i < brickCount) {
+            let brick = bricks[i];
+            do brick.erase();
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void moveDownAndRedraw() {
+        do erase();
+        do moveDown();
+        do draw();
+        return;
+    }
+
     method void moveDown() {
         var int i;
         var Brick brick;
@@ -56,8 +76,29 @@ class Block {
         return;
     }
 
+    method void dropAndRedraw() {
+        do erase();
+        do drop();
+        do draw();
+        return;
+    }
+
+    method void drop() {
+        while (canMoveDown()) {
+            do moveDown();
+        }
+        return;
+    }
+
     method boolean canMoveDown() {
         return Board.canBlockMoveDown(this);
+    }
+
+    method void moveLeftAndRedraw() {
+        do erase();
+        do moveLeft();
+        do draw();
+        return;
     }
 
     method void moveLeft() {
@@ -72,6 +113,13 @@ class Block {
                 let i = i - 1;
             }
         }
+        return;
+    }
+
+    method void moveRightAndRedraw() {
+        do erase();
+        do moveRight();
+        do draw();
         return;
     }
 
